@@ -7,6 +7,8 @@ source ~/.bash_profile
 source $path/env
 source /root/.forerunner/env
 
+wallet=$(jq -r .address /root/.forerunner/sync-wallet.json)
+
 service=$(systemctl is-active forerunner-sync)
 
 health_json=$(curl -sS http://localhost:7080/health)
@@ -37,7 +39,8 @@ cat >$json << EOF
         "message":"$message",
         "m1":"health=$health connection=$connection",
         "m2":"service=$service",
-        "m3":"license=$LICENSE_TOKEN_ID pubkey=$NODE_PUBKEY"
+        "m3":"license=$LICENSE_TOKEN_ID pubkey=$NODE_PUBKEY",
+        "wallet":"$wallet"
   }
 }
 EOF
