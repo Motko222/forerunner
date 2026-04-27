@@ -5,6 +5,7 @@ folder=$(echo $path | awk -F/ '{print $NF}')
 json=~/logs/report-$folder
 source ~/.bash_profile
 source $path/env
+source /root/.forerunner/env
 
 service=$(systemctl is-active forerunner-sync)
 
@@ -35,7 +36,8 @@ cat >$json << EOF
         "status":"$status",
         "message":"$message",
         "m1":"health=$health connection=$connection",
-        "m2":"service=$service"
+        "m2":"service=$service",
+        "m3":"license=$LICENSE_TOKEN_ID pubkey=$NODE_PUBKEY"
   }
 }
 EOF
